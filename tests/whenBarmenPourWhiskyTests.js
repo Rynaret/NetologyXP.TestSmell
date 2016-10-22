@@ -36,18 +36,15 @@ suite('when barmen pour whisky', function () {
         });
     });
 
-    suite('i ask -10 grams', function () {
-        test('I get an error', function (done) {
-            fs.readFile('whisky.jpg', function (err, whisky) {
-                if (err) {
-                    throw err;
-                }
+    // переименуем название теста в более понятное
+    suite('I ask wrong value (less then zero)', function () {
+        test('I get a negative answer', function (done) {
+            // в названии  теста нет упоминания о виски, избавляемся от получения файла
+            const whisky = {};
+            var iAskVolume = -10;
 
-                var iAskVolume = -10;
-
-                expect(() => pour(whisky, iAskVolume)).to.throw(/Invalid volume of whisky/);
-                done();
-            });
+            expect(() => pour(whisky, iAskVolume)).to.throw(/Invalid volume of whisky/);
+            done();
         });
 
 
