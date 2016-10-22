@@ -21,22 +21,18 @@ suite('when barmen pour whisky', function () {
 
     suite('i ask 50 grams', function () {
         test('I get and drink whisky', function (done) {
-            fs.readFile('whisky.jpg', function (err, whisky) {
-                if (err) {
-                    throw err;
-                }
+            // избавимся от чтения файла, так как по названию теста нам важно получить 50 граммов
+            // один тест, одна проблема
+            const whisky = {};
+            var iAskVolume = 50;
 
-                var iAskVolume = 50;
+            var volumeInGlass = pour(whisky, iAskVolume);
+            drink(volumeInGlass);
 
-                var volumeInGlass = pour(whisky, iAskVolume);
-                drink(volumeInGlass);
-
-                assert.equal(iAskVolume, volumeInGlass);
-                assert.equal(false, isDrunked());
-                assert.equal(50, getTotallyDrunked());
-
-                done();
-            });
+            assert.equal(iAskVolume, volumeInGlass);
+            // избавимся от лишних assert, так как они не отражают суть теста
+            // а именно проверка того, что я спросил и получил 50 граммов виски
+            done();
         });
     });
 
