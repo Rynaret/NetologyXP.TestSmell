@@ -1,14 +1,15 @@
 import assert from 'assert'
 import { pour, free as freeBarmen } from '../src/barmen'
-import { drink, sober } from '../src/me'
+import { drink, sober, goToBar } from '../src/me'
 import { expect } from 'chai'
-import username from 'username'
 
 
 suite('when barmen pour whisky', function () {
     setup(function (done) {
         sober();
         // избавимся от ненужной логики
+        let car = {};
+        goToBar(car);
         freeBarmen();
         done();
     });
@@ -45,18 +46,15 @@ suite('when barmen pour whisky', function () {
     });
 
     suite('i ask 500 grams', function() {
-        test('Barmen said there is no such glass', function(done) {
+        test('Barmen said there is no such glass', function (done) {
 
-            username().then(un => {
-                console.log(un);
-                if (un === "alex4Zero") {
-                }
-                var iAskVolume = 500;
-                var whisky = 1;
+            // нам не важно имя => можем от него избавится
 
-                expect(() => pour(whisky, iAskVolume)).to.throw(/There is no such glass/);
-                done();
-            });
+            var iAskVolume = 500;
+            var whisky = 1;
+
+            expect(() => pour(whisky, iAskVolume)).to.throw(/There is no such glass/);
+            done();
         })
     });
 
